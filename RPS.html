@@ -24,27 +24,72 @@
         computerSelection = computerSelection.toLowerCase();
 
         if (playerSelection == computerSelection){
-            return "It's a draw!";
+            roundNumber--;
+            return "It's a draw! Replay this round.";
         } else if (playerSelection == "rock" && computerSelection == "scissors"){
-            return "You win! Rock beats Scissors.";
+            playerScore++;
+            return ("You win Round " + roundNumber + "! Rock beats Scissors.");
         } else if (playerSelection == "rock" && computerSelection == "paper"){
-            return "You lose! Paper beats Rock.";
+            computerScore++;
+            return ("You lose Round " + roundNumber + "! Paper beats Rock.");
         } else if (playerSelection == "paper" && computerSelection == "scissors"){
-            return "You lose! Scissors beats Paper.";
+            computerScore++;
+            return ("You lose Round " + roundNumber + "! Scissors beats Paper.");
         } else if (playerSelection == "paper" && computerSelection == "rock"){
-            return "You win! Paper beats Rock.";
+            playerScore++;
+            return ("You win Round " + roundNumber + "! Paper beats Rock.");
         } else if (playerSelection == "scissors" && computerSelection == "rock"){
-            return "You lose! Rock beats Scissors.";
+            computerScore++;
+            return ("You lose Round " + roundNumber + "! Rock beats Scissors.");
         } else if (playerSelection == "scissors" && computerSelection == "paper"){
-            return "You win! Scissors beats Paper.";
+            playerScore++;
+            return ("You win Round " + roundNumber + "! Scissors beats Paper.");
         } else {
-            return "You did not input a correct value! Please type rock, paper, or scissors."
+            roundNumber--;
+            return "You did not input a correct value! Please type rock, paper, or scissors to replay the round."
         }
       }
 
-      let playerSelection = prompt("Make your selection!", "")
-      let computerSelection = computerPlay();
-      console.log(playRound(playerSelection, computerSelection));
+      function resetGame(){
+        playerScore = 0;
+        computerScore = 0;
+        roundNumber = 0;
+        return;
+      }
+
+      function endGame(playerScore, computerScore){
+        if (playerScore > computerScore){
+            console.log("The game is over. You win!");
+        } else {
+            console.log("The game is over. You lose!")
+        }
+        let response = prompt("Would you like to play again? Press Y to reset the game, or N to exit.", "");
+        response.toLowerCase();
+        while( response != "y" && response != "n"){
+          response = prompt("You did not input a correct value. If you would like to play again, press Y to reset the game, or N to exit", "");
+          response.toLowerCase();
+        }
+        (response == "y") && resetGame();
+        return;
+      }
+
+      let playerScore = 0;
+      let computerScore = 0;
+      let roundNumber = 1;
+
+      function game(){
+        for (roundNumber; roundNumber<6; roundNumber++){
+          let playerSelection = prompt(("Make your selection for round " + roundNumber + "!"), "");
+          let computerSelection = computerPlay();
+          console.log(playRound(playerSelection, computerSelection));
+          console.log("The score is now: Player - " + playerScore + ", Computer - " + computerScore);
+          if (roundNumber == 5){
+            endGame(playerScore, computerScore);
+          }
+        }
+      }
+
+      console.log(game());
 
     </script>
   </body>
