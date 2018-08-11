@@ -3,96 +3,50 @@
   <head>
     <meta charset="UTF-8">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
   </head>
 
   <body>
-    <h2>Rock, Paper, Scissors</h2>
-    <p>First open the console, then click the button below play!</p>
-    <button onclick="game()">Start Game</button>
-    <script>
-      function computerPlay(){
-        let computerChoice = Math.floor(Math.random() * 3);
-        if (computerChoice == 0){
-          return "Rock";
-        }else if (computerChoice == 1){
-          return "Paper";
-        }else{
-          return "Scissors";
-        }
-      }
 
-      function playRound(playerSelection, computerSelection){
-        playerSelection = playerSelection.toLowerCase();
-        computerSelection = computerSelection.toLowerCase();
+    <header>
+      <h1>Rock, Paper, Scissors</h2>
+    </header>
 
-        if (playerSelection == computerSelection){
-            roundNumber--;
-            return "It's a draw! Replay this round.";
-        } else if (playerSelection == "rock" && computerSelection == "scissors"){
-            playerScore++;
-            return ("You win Round " + roundNumber + "! Rock beats Scissors.");
-        } else if (playerSelection == "rock" && computerSelection == "paper"){
-            computerScore++;
-            return ("You lose Round " + roundNumber + "! Paper beats Rock.");
-        } else if (playerSelection == "paper" && computerSelection == "scissors"){
-            computerScore++;
-            return ("You lose Round " + roundNumber + "! Scissors beats Paper.");
-        } else if (playerSelection == "paper" && computerSelection == "rock"){
-            playerScore++;
-            return ("You win Round " + roundNumber + "! Paper beats Rock.");
-        } else if (playerSelection == "scissors" && computerSelection == "rock"){
-            computerScore++;
-            return ("You lose Round " + roundNumber + "! Rock beats Scissors.");
-        } else if (playerSelection == "scissors" && computerSelection == "paper"){
-            playerScore++;
-            return ("You win Round " + roundNumber + "! Scissors beats Paper.");
-        } else {
-            roundNumber--;
-            return "You did not input a correct value! Please type rock, paper, or scissors to replay the round."
-        }
-      }
+    <main>
+      <div id="instruct">
+        <h4>Make your play!</p>
+      </div>
 
-      function resetGame(){
-        playerScore = 0;
-        computerScore = 0;
-        roundNumber = 0;
-        return;
-      }
+      <div id="btns">
+        <button class="btn">ROCK</button>
+        <button class="btn">PAPER</button>
+        <button class="btn">SCISSORS</button>
+      </div>
 
-      function endGame(playerScore, computerScore){
-        if (playerScore > computerScore){
-            console.log("The game is over. You win!");
-        } else {
-            console.log("The game is over. You lose!")
-        }
-        let response = prompt("Would you like to play again? Press Y to reset the game, or N to exit.", "");
-        response.toLowerCase();
-        while( response != "y" && response != "n"){
-          response = prompt("You did not input a correct value. If you would like to play again, press Y to reset the game, or N to exit", "");
-          response.toLowerCase();
-        }
-        (response == "y") && resetGame();
-        return;
-      }
+      <br>
+      <hr>
+      <br>
 
-      let playerScore = 0;
-      let computerScore = 0;
-      let roundNumber = 1;
+      <h3 id="roundNumber">Current Round: 0</h3>
+      <div id="roundResult" class="hidden">RESULT</div>
+      <div id="scores">
+        <div id="playerScore" class="score">
+          <h4>Player Score</h4>
+          <p>0</p>
+        </div>
+        <div id="computerScore" class="score">
+          <h4>Computer Score</h4>
+          <p>0</p>
+        </div>
+      </div>
 
-      function game(){
-        for (roundNumber; roundNumber<6; roundNumber++){
-          let playerSelection = prompt(("Make your selection for round " + roundNumber + "!"), "");
-          let computerSelection = computerPlay();
-          console.log(playRound(playerSelection, computerSelection));
-          console.log("The score is now: Player - " + playerScore + ", Computer - " + computerScore);
-          if (roundNumber == 5){
-            endGame(playerScore, computerScore);
-          }
-        }
-      }
+      <div id="gameWinner" class="hidden">WINNER</div>
 
-      //console.log(game());
+      <button id="reset">Reset Game</button>
+      <!-- <p>First open the console, then click the button below play!</p>
+      <button onclick="game()">Start Game</button> -->
 
-    </script>
+    </main>
   </body>
+  <script src="scripts.js"></script>
 </html>
